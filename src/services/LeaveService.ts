@@ -32,10 +32,11 @@ class LeaveService {
             localStorage.setItem('currentUser', JSON.stringify(adminUser));
             return adminUser;
         } else {
+            const name = email.replace('@gmail.com', '');
             const employeeUser = {
                 ...INITIAL_USER,
-                id: `EMP ${Math.random()}`,
-                name: email.replace("@gmail.com", ''),
+                id: `EMP${name}`,
+                name: name,
                 email: email,
                 role: 'employee'
             }
@@ -43,6 +44,15 @@ class LeaveService {
             return employeeUser;
         }
     };
+
+    getCurrentUser () {
+        const user = localStorage.getItem('currentUser');
+        return user ? JSON.parse(user) : null;
+    }
+
+    logout () {
+        localStorage.removeItem('currentUser');
+    }
 }
 
 export default new LeaveService();

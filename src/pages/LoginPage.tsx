@@ -32,7 +32,7 @@ export default function LoginPage({ onLogin }: any) {
         // login mock
         try {
             const user = await LeaveService.login(formData.email, formData.password);
-            onLogin(user);
+            // onLogin(user);
         } catch (err: any) {
             setError(err.message);
         } finally {
