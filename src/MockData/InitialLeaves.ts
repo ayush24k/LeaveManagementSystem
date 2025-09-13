@@ -1,7 +1,7 @@
-const INITIAL_LEAVES = [
+export const INITIAL_LEAVES = [
   {
     id: 1,
-    employeeId: '1',
+    employeeId: 'EMP1',
     employeeName: 'Ayush',
     type: 'Annual Leave',
     startDate: '2024-01-15',
@@ -14,7 +14,7 @@ const INITIAL_LEAVES = [
   },
   {
     id: 2,
-    employeeId: '1',
+    employeeId: 'EMP1',
     employeeName: 'Ayush',
     type: 'Sick Leave',
     startDate: '2024-02-05',

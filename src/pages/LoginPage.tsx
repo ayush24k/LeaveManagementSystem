@@ -1,6 +1,7 @@
 import { Calendar, Eye, EyeOff, Lock, Mail } from "lucide-react"
 import { useState, type ChangeEvent } from "react";
 import Loader from "../components/Loader";
+import LeaveService from "../services/LeaveService";
 
 interface FormData {
     email: string;
@@ -30,8 +31,8 @@ export default function LoginPage({ onLogin }: any) {
 
         // login mock
         try {
-            // const user = await LeaveService.login(formData.email, formData.password);
-            // onLogin(user);
+            const user = await LeaveService.login(formData.email, formData.password);
+            onLogin(user);
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -157,10 +158,10 @@ export default function LoginPage({ onLogin }: any) {
                         <div className="grid grid-cols-2 gap-3">
                             <button
                                 type="button"
-                                onClick={() => fillDemoCredentials('employee')}
+                                onClick={() => fillDemoCredentials('user')}
                                 className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-[#462c95] transition-colors"
                             >
-                                Employee Login
+                                User Login
                             </button>
                             <button
                                 type="button"
