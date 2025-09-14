@@ -38,11 +38,11 @@ function App() {
       </div>
     );
   }
-  
+
   return (
-    <UserContext.Provider value={{currentUser, setCurrentUser}}>
-      <Navbar />
-      <Outlet context={{handleLogin}} />
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      {currentUser && <Navbar />}
+      <Outlet context={{ handleLogin }} />
     </UserContext.Provider>
   )
 }
