@@ -1,4 +1,4 @@
-// mock leavve service api
+// mock leavve service api and login 
 
 import { INITIAL_LEAVES } from "../MockData/InitialLeaves";
 import { INITIAL_USER } from "../MockData/InitialUser";
@@ -16,8 +16,8 @@ class LeaveService {
     }
 
     // login API Mocked
-    async login(email:string, password:string) {
-        
+    async login(email: string, password: string) {
+
         // timer so it looks like a real api call
         await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -45,13 +45,76 @@ class LeaveService {
         }
     };
 
-    getCurrentUser () {
+    getCurrentUser() {
         const user = localStorage.getItem('currentUser');
         return user ? JSON.parse(user) : null;
     }
 
-    logout () {
+    logout() {
         localStorage.removeItem('currentUser');
+    }
+
+
+    // submit leave
+    async submitLeave(leaveData: any) {
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        const leaves = JSON.parse(localStorage.getItem('leaves') || '[]');
+        const currentUser = this.getCurrentUser();
+
+        const newLeave = {
+            id: Math.max(...leaves.map((l: any) => l.id), 0) + 1, // finds the highest id number if exists and adds 1 to prevent same ids
+            employeeId: currentUser.id,
+            employeeName: currentUser.name,
+            ...leaveData,
+            status: 'Pending',
+            appliedDate: new Date().toISOString().split('T')[0],
+            approvedBy: null
+        };
+
+        leaves.push(newLeave);
+        localStorage.setItem('leaves', JSON.stringify(leaves));
+
+        return newLeave;
+    }
+
+    // get leave
+    async getLeaves() {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const leaves = JSON.parse(localStorage.getItem('leaves') || '[]');
+        const currentUser = this.getCurrentUser();
+
+        if (currentUser?.role === 'admin') {
+            return leaves;
+        }
+
+        return leaves.filter((leave: any) => leave.employeeId === currentUser?.id);
+    }
+
+
+    // update leave status
+    async updateLeaveStatus(leaveId: any, status: any) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        const leaves = JSON.parse(localStorage.getItem('leaves') || '[]');
+        const currentUser = this.getCurrentUser();
+
+        if (currentUser?.role !== 'admin') {
+            throw new Error('Not Admin');
+        }
+
+        const leaveIndex = leaves.findIndex((leave: any) => leave.id === leaveId);
+        if (leaveIndex === -1) {
+            throw new Error('Leave request not found');
+        }
+
+        leaves[leaveIndex].status = status;
+        leaves[leaveIndex].approvedBy = currentUser.name;
+
+        localStorage.setItem('leaves', JSON.stringify(leaves));
+
+        return leaves[leaveIndex];
     }
 }
 
