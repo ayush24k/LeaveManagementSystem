@@ -116,6 +116,27 @@ class LeaveService {
 
         return leaves[leaveIndex];
     }
+
+    // leave all data
+    async getLeavesData() {
+        await new Promise(resolve => setTimeout(resolve, 300));
+
+        const leaves = await this.getLeaves();
+        const currentUser = this.getCurrentUser();
+
+        const stats = {
+            totalRequests: leaves.length,
+            pendingRequests: leaves.filter((l:any) => l.status === 'Pending').length,
+            approvedRequests: leaves.filter((l:any) => l.status === 'Approved').length,
+            rejectedRequests: leaves.filter((l:any) => l.status === 'Rejected').length,
+            totalDaysUsed: leaves
+                .filter((l:any) => l.status === 'Approved')
+                .reduce((sum:any, leave:any) => sum + leave.days, 0),
+            leaveBalance: currentUser?.leaveBalance || {}
+        };
+
+        return stats;
+    }
 }
 
 export default new LeaveService();
