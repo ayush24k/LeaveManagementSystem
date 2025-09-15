@@ -22,7 +22,7 @@ export default function ApplyLeavePage() {
     });
 
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState<Record<string, string>>({});
+    // const [errors, setErrors] = useState<Record<string, string>>({});
 
     const leaveTypes = [
         'Annual Leave',
@@ -106,8 +106,7 @@ export default function ApplyLeavePage() {
                                 name="type"
                                 value={formData.type}
                                 onChange={handleInputChange}
-                                className={`w-full bg-slate-200 text-gray-700 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${errors.type ? 'border-red-300' : 'border-gray-300'
-                                    }`}
+                                className={`w-full bg-slate-200 text-gray-700 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors`}
                             >
                                 {leaveTypes.map(type => (
                                     <option key={type} value={type} className="text-black">
@@ -133,8 +132,7 @@ export default function ApplyLeavePage() {
                                         required
                                         value={formData.startDate}
                                         onChange={handleInputChange}
-                                        className={`w-full pl-10 pr-4 py-3 bg-slate-200 text-gray-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${errors.startDate ? 'border-red-300' : 'border-gray-300'
-                                            }`}
+                                        className={`w-full pl-10 pr-4 py-3 bg-slate-200 text-gray-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors`}
                                     />
                                 </div>
                             </div>
@@ -154,8 +152,7 @@ export default function ApplyLeavePage() {
                                         value={formData.endDate}
                                         onChange={handleInputChange}
                                         min={formData.startDate}
-                                        className={`w-full pl-10 bg-slate-200 text-gray-700 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors ${errors.endDate ? 'border-red-300' : 'border-gray-300'
-                                            }`}
+                                        className={`w-full pl-10 bg-slate-200 text-gray-700 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors`}
                                     />
                                 </div>
                             </div>
@@ -175,8 +172,7 @@ export default function ApplyLeavePage() {
                                     value={formData.reason}
                                     onChange={handleInputChange}
                                     rows={4}
-                                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none ${errors.reason ? 'border-red-300' : 'border-gray-300'
-                                        }`}
+                                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none`}
                                     placeholder="Please provide a detailed reason for your leave request..."
                                 />
                             </div>
