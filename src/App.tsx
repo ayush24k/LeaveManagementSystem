@@ -42,7 +42,7 @@ function App() {
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>
       {currentUser && <Navbar />}
-      <Outlet context={{ handleLogin }} />
+        <Outlet context={{ handleLogin }} />
     </UserContext.Provider>
   )
 }
