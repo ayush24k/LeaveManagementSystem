@@ -118,13 +118,13 @@ class LeaveService {
     }
 
     // leave all data
-    async getLeavesData() {
+    async getLeavesStatus() {
         await new Promise(resolve => setTimeout(resolve, 300));
 
         const leaves = await this.getLeaves();
         const currentUser = this.getCurrentUser();
 
-        const stats = {
+        const status = {
             totalRequests: leaves.length,
             pendingRequests: leaves.filter((l:any) => l.status === 'Pending').length,
             approvedRequests: leaves.filter((l:any) => l.status === 'Approved').length,
@@ -135,7 +135,7 @@ class LeaveService {
             leaveBalance: currentUser?.leaveBalance || {}
         };
 
-        return stats;
+        return status;
     }
 }
 
