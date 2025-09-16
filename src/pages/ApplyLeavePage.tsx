@@ -116,7 +116,7 @@ export default function ApplyLeavePage() {
                             </select>
                         </div>
 
-                        {/* Date section */}
+                        {/* date section */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white">
                             {/* start date */}
                             <div>
@@ -158,7 +158,7 @@ export default function ApplyLeavePage() {
                             </div>
                         </div>
 
-                        {/* Reason */}
+                        {/* reason of leave section*/}
                         <div>
                             <label htmlFor="reason" className="block text-sm font-medium text-white mb-2">
                                 Reason for Leave <span className="text-red-500">*</span>
@@ -183,12 +183,12 @@ export default function ApplyLeavePage() {
                             </div>
                         </div>
 
-                        {/* Submit Button */}
+                        {/* submit button */}
                         <div className="flex gap-4 pt-4">
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 bg-[#6D54B5] hover:bg-[#544289] disabled:bg-blue-400 text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
+                                className="flex-1 bg-[#6D54B5] hover:bg-[#544289] disabled:bg-[#3e3166] text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
                             >
                                 {loading ? (
                                     <>
