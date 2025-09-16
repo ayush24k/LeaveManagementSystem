@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import LeaveService from "../services/LeaveService"
+import Loader from "../components/Loader";
 
 interface LeaveType {
     id: string;
+    employeeId: string;
     employeeName: string;
-    appliedDate: string;
+    type: string;
+    startDate: string;
+    endDate: string;
+    days: number;
+    reason: string;
     status: string;
-    // add other fields from your API here
-}
+    appliedDate: string;
+    approvedBy: string;
+};
+
 
 export default function LeaveHistoryPage() {
     const [leaves, setLeaves] = useState<LeaveType[]>([]);
@@ -41,7 +49,7 @@ export default function LeaveHistoryPage() {
 
 
     return (
-        <div className="h-screen bg-slate-200">
+        <div className="h-screen bg-slate-200 px-8">
             <div className="max-w-7xl mx-auto pt-8">
                 {/* header */}
                 <div className="space-y-6">
@@ -58,33 +66,46 @@ export default function LeaveHistoryPage() {
                 </div>
 
                 {/* load leaves here */}
-                <div className="mt-6 space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-8">
                     {loading ? (
-                        <p>Loading...</p>
+                        <Loader/>
                     ) : leaves.length === 0 ? (
-                        <p>No leave requests found.</p>
+                        <p>No leave requests found</p>
                     ) : (
                         leaves.map((leave) => (
                             <div
                                 key={leave.id}
-                                className="bg-white p-4 rounded-lg shadow flex justify-between"
+                                className="bg-[#2C2638] text-white p-4 rounded-lg shadow flex justify-between"
                             >
                                 <div>
-                                    <p className="font-semibold">{leave.employeeName}</p>
-                                    <p className="text-sm text-gray-600">
+                                    <h1 className="font-semibold text-lg">{leave.employeeName}</h1>
+                                    <p className="text-sm text-gray-400">
                                         Applied: {new Date(leave.appliedDate).toLocaleDateString()}
                                     </p>
+
+                                    {/* leave details */}
+                                    <p className="text-sm">Type: {leave.type}</p>
+                                    <p className="text-sm">
+                                        Duration: {new Date(leave.startDate).toLocaleDateString()} to {" "}
+                                        {new Date(leave.endDate).toLocaleDateString()}
+                                    </p>
+                                    <p className="text-sm">Days: {leave.days}</p>
+                                    <p className="text-sm">Reason: {leave.reason}</p>
+                                    {leave.approvedBy && (
+                                        <p className="text-sm text-gray-400">Approved By: {leave.approvedBy}</p>
+                                    )}
                                 </div>
-                                <span
-                                    className={`px-3 py-1 text-sm rounded ${leave.status === "approved"
-                                            ? "bg-green-100 text-green-700"
-                                            : leave.status === "pending"
-                                                ? "bg-yellow-100 text-yellow-700"
-                                                : "bg-red-100 text-red-700"
+
+                                <div
+                                    className={`self-start px-3 py-3 text-sm rounded ${leave.status === "Approved"
+                                        ? "bg-green-100 text-green-700"
+                                        : leave.status === "Pending"
+                                            ? "bg-yellow-100 text-yellow-700"
+                                            : "bg-red-100 text-red-700"
                                         }`}
                                 >
                                     {leave.status}
-                                </span>
+                                </div>
                             </div>
                         ))
                     )}
