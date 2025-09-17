@@ -1,6 +1,6 @@
 export const INITIAL_USER = {
   id: '1',
-  name: 'Ayush',
+  name: 'ayush',
   email: 'ayush@gmail.com',
   role: 'employee', // 'employee' or 'admin'
   leaveBalance: {

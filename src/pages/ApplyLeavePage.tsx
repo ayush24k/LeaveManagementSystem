@@ -86,7 +86,7 @@ export default function ApplyLeavePage() {
 
 
     return (
-        <div className="h-screen bg-slate-200">
+        <div className="min-h-screen bg-slate-200">
             <div className="max-w-2xl mx-auto pt-16">
                 <div className="bg-[#2C2638] rounded-xl shadow-sm border border-gray-200 p-8 text-white">
                     <div className="mb-8">

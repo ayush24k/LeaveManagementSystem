@@ -6,6 +6,7 @@ import { Calendar } from "lucide-react";
 import StatusBadge from "../components/StatusBadge";
 
 export default function DashboardPage() {
+    const [leavesBalance, setLeavesBalance] = useState<any>(null);
     const [recentLeaves, setRecentLeaves] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -20,6 +21,9 @@ export default function DashboardPage() {
         try {
             setLoading(true);
             const leavesData = await LeaveService.getLeaves();
+            const leavesBalance = await LeaveService.getLeavesBalance();
+
+            setLeavesBalance(leavesBalance);
             // get only 5 recent leaves
             setRecentLeaves(leavesData.slice(-5).reverse());
         } catch (err) {
@@ -123,10 +127,27 @@ export default function DashboardPage() {
                         </div>
 
                         {/* leave balance */}
-                        {!isAdmin && (
+                        {!isAdmin && leavesBalance && (
                             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Leave Balance</h3>
-                                <p className="text-gray-600">Show available leave stats here...</p>
+                                <div className="grid grid-cols-2 gap-4 text-center">
+                                    <div className="p-4 bg-gray-50 rounded-lg">
+                                        <p className="text-sm text-gray-500">Total</p>
+                                        <p className="text-xl font-bold text-gray-900">{leavesBalance.total}</p>
+                                    </div>
+                                    <div className="p-4 bg-gray-50 rounded-lg">
+                                        <p className="text-sm text-gray-500">Available</p>
+                                        <p className="text-xl font-bold text-green-600">{leavesBalance.availableLeaves}</p>
+                                    </div>
+                                    <div className="p-4 bg-gray-50 rounded-lg">
+                                        <p className="text-sm text-gray-500">Approved</p>
+                                        <p className="text-xl font-bold text-blue-600">{leavesBalance.approvedLeaves}</p>
+                                    </div>
+                                    <div className="p-4 bg-gray-50 rounded-lg">
+                                        <p className="text-sm text-gray-500">Pending</p>
+                                        <p className="text-xl font-bold text-orange-600">{leavesBalance.pendingRequest}</p>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>

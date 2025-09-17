@@ -49,7 +49,7 @@ export default function LeaveHistoryPage() {
 
 
     return (
-        <div className="h-screen bg-slate-200 px-8">
+        <div className="min-h-screen bg-slate-200 p-8">
             <div className="max-w-7xl mx-auto pt-8">
                 {/* header */}
                 <div className="space-y-6">
@@ -110,7 +110,6 @@ export default function LeaveHistoryPage() {
                         ))
                     )}
                 </div>
-
             </div>
         </div>
     )

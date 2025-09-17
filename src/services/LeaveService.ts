@@ -95,7 +95,7 @@ class LeaveService {
 
     // update leave status
     async updateLeaveStatus(leaveId: any, status: any) {
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 200));
 
         const leaves = JSON.parse(localStorage.getItem('leaves') || '[]');
         const currentUser = this.getCurrentUser();
@@ -125,9 +125,9 @@ class LeaveService {
 
         const leaveBalance = {
             total: currentUser.leaveBalance.total,
-            pendingRequest: leaves.filter((l: any) => l.stats === 'Pending').length,
-            approvedLeaves: leaves.filter((l: any) => l.stats === 'Approved').length,
-            availableLeaves: currentUser.leaveBalance.total - leaves.filter((l: any) => l.stats === "Approved").length
+            pendingRequest: leaves.filter((l: any) => l.status === 'Pending').length,
+            approvedLeaves: leaves.filter((l: any) => l.status === 'Approved').length,
+            availableLeaves: currentUser.leaveBalance.total - leaves.filter((l: any) => l.status === "Approved").length
         }
 
         const updatedUser = {

@@ -46,6 +46,7 @@ export default function AdminPage() {
 
     const handleUpdateStatus = async (leaveId: string, status: "Approved" | "Rejected") => {
         try {
+            setLoading(true);
             await LeaveService.updateLeaveStatus(leaveId, status);
             setLeaves((prev) =>
                 prev.map((leave) =>
@@ -56,11 +57,13 @@ export default function AdminPage() {
             );
         } catch (err) {
             console.log(`Error updating status to ${status}`, err);
+        } finally {
+            setLoading(false)
         }
     };
 
     return (
-        <div className="h-screen bg-slate-200 px-8">
+        <div className="min-h-screen bg-slate-200 p-8">
             <div className="max-w-7xl mx-auto pt-8">
                 {/* header */}
                 <div className="space-y-6">
@@ -113,13 +116,13 @@ export default function AdminPage() {
                                                 onClick={() => handleUpdateStatus(leave.id, "Approved")}
                                                 className="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded"
                                             >
-                                                Approve
+                                                {loading ? "Approving" : "Approve"}
                                             </button>
                                             <button
                                                 onClick={() => handleUpdateStatus(leave.id, "Rejected")}
                                                 className="bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded"
                                             >
-                                                Reject
+                                                {loading ? "Rejecting" : "Reject"}
                                             </button>
                                         </div>
                                     )}
