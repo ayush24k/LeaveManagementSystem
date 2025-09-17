@@ -59,7 +59,7 @@ export default function LeaveHistoryPage() {
                                 {isAdmin ? 'Team ' : ''}Leave History
                             </h1>
                             <p className="text-gray-600">
-                                total requests
+                                total leave requsts: {leaves.length}
                             </p>
                         </div>
                     </div>

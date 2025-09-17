@@ -4,9 +4,9 @@ export const INITIAL_USER = {
   email: 'ayush@gmail.com',
   role: 'employee', // 'employee' or 'admin'
   leaveBalance: {
-    annual: 15,
-    sick: 8,
-    personal: 5,
-    total: 28
+    pendingRequest: null,
+    availableLeaves: null,
+    approvedLeaves: null,
+    total: 20
   }
 };

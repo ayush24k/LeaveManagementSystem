@@ -117,25 +117,27 @@ class LeaveService {
         return leaves[leaveIndex];
     }
 
-    // leave all data
-    async getLeavesStatus() {
+    async getLeavesBalance() {
         await new Promise(resolve => setTimeout(resolve, 300));
 
         const leaves = await this.getLeaves();
         const currentUser = this.getCurrentUser();
 
-        const status = {
-            totalRequests: leaves.length,
-            pendingRequests: leaves.filter((l:any) => l.status === 'Pending').length,
-            approvedRequests: leaves.filter((l:any) => l.status === 'Approved').length,
-            rejectedRequests: leaves.filter((l:any) => l.status === 'Rejected').length,
-            totalDaysUsed: leaves
-                .filter((l:any) => l.status === 'Approved')
-                .reduce((sum:any, leave:any) => sum + leave.days, 0),
-            leaveBalance: currentUser?.leaveBalance || {}
+        const leaveBalance = {
+            total: currentUser.leaveBalance.total,
+            pendingRequest: leaves.filter((l: any) => l.stats === 'Pending').length,
+            approvedLeaves: leaves.filter((l: any) => l.stats === 'Approved').length,
+            availableLeaves: currentUser.leaveBalance.total - leaves.filter((l: any) => l.stats === "Approved").length
+        }
+
+        const updatedUser = {
+            ...currentUser,
+            leaveBalance,
         };
 
-        return status;
+        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+
+        return leaveBalance;
     }
 }
 
